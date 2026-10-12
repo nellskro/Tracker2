@@ -6,7 +6,6 @@ const CAT_ORDER = ['Santé', 'Travail', 'Personnel'];
 const CHECK_COLOR = '#7c3aed';
 
 function getWeekDays() {
-  const days = [];
   const today = new Date();
   const dow = today.getDay();
   const monday = new Date(today);
