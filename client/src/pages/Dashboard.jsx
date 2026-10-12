@@ -38,7 +38,7 @@ export default function Dashboard() {
   const quote = getQuoteOfDay();
   const today = new Date().toISOString().slice(0, 10);
 
-  useEffect(() => {
+  const loadData = () => {
     Promise.all([
       api.get('/logs/stats'),
       api.get('/badges'),
@@ -48,6 +48,12 @@ export default function Dashboard() {
       setStats(s); setBadges(b); setJournal(j); setMonthlyProgress(mp);
       setLoading(false);
     }).catch(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadData();
+    const interval = setInterval(loadData, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) return <LoadingSpinner />;
