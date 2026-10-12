@@ -11,6 +11,7 @@ function getDateStr(offset = 0) {
 // IMPORTANT: routes spécifiques avant /:date
 // GET stats
 router.get('/stats', async (req, res) => {
+  try {
   const today = getDateStr(0);
   const d = new Date();
   const day = d.getDay();
@@ -90,6 +91,10 @@ router.get('/stats', async (req, res) => {
   }
 
   res.json({ scoreJour, scoreSemaine, scoreMois, streak, totalDone, last30, niveau, xpCurrent, xpNext, catStats });
+  } catch(e) {
+    console.error('Stats error:', e.message);
+    res.json({ scoreJour: 0, scoreSemaine: 0, scoreMois: 0, streak: 0, totalDone: 0, last30: [], niveau: 1, xpCurrent: 0, xpNext: 500, catStats: [] });
+  }
 });
 
 // GET monthly-progress
