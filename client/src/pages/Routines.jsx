@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { api, formatDate } from '../utils/api';
 
 const CAT_COLORS = { 'Santé': '#10b981', 'Travail': '#6366f1', 'Personnel': '#f59e0b' };
@@ -281,7 +281,7 @@ export default function Routines() {
   const [routines, setRoutines] = useState([]);
   const [logs, setLogs] = useState({});
   const [loading, setLoading] = useState(true);
-  const days = getWeekDays();
+  const days = useMemo(() => getWeekDays(), []);
   const todayStr = formatDate();
 
   useEffect(() => { loadAll(); }, []);
